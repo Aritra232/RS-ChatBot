@@ -9,6 +9,6 @@ python-dotenv
 transformers
 PyPDF2
 unstructured
-llama-cpp-python
 huggingface_hub
 CTransformers
+-e .
