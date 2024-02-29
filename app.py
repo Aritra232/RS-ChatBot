@@ -20,12 +20,13 @@ PINECONE_API_ENV = os.environ.get('PINECONE_API_ENV')
 embeddings = download_hugging_face_embeddings()
 
 #Initializing the Pinecone
-pc = Pinecone(PINECONE_API_KEY)
+# pc = Pinecone(PINECONE_API_KEY, embeddings)
 
 index_name="rs-chatbot"
+hosts = "https://rs-chatbot-95t40fu.svc.gcp-starter.pinecone.io"
 
 #Loading the index
-docsearch=Pinecone.from_existing_index(index_name, embeddings)
+docsearch=Pinecone.from_existing_index(index_name, embeddings, hosts)
 
 
 PROMPT=PromptTemplate(template=prompt_template, input_variables=["context", "question"])
