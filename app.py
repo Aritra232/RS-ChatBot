@@ -26,7 +26,7 @@ index_name="rs-chatbot"
 hosts = "https://rs-chatbot-95t40fu.svc.gcp-starter.pinecone.io"
 
 #Loading the index
-docsearch=Pinecone.from_existing_index(index_name, embeddings, hosts)
+docsearch=Pinecone.from_existing_index(index_name, embeddings)
 
 
 PROMPT=PromptTemplate(template=prompt_template, input_variables=["context", "question"])
