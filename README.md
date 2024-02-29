@@ -1,11 +1,14 @@
 # RS-ChatBot
 
 ## Steps to run the Project
-'''bash
+```bash
 conda create -n rscb python=3.8 -y
-'''
+```
 
-'''bash
+```bash
 conda activate rscb
-'''
+```
 
+```bash
+pip install -r requirements.txt
+```
