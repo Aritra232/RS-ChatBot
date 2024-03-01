@@ -4,6 +4,7 @@ from langchain_pinecone import Pinecone
 from langchain.prompts import PromptTemplate
 from langchain.llms import CTransformers
 from langchain.chains import RetrievalQA
+from langchain.chains.question_answering import load_qa_chain
 from dotenv import load_dotenv
 from src.prompt import *
 import os
@@ -20,13 +21,13 @@ embeddings = download_hugging_face_embeddings()
 
 #Initializing the Pinecone
 
-index_name="rs-chatbot"
+index_name="product"
 
 #Loading the index
 docsearch=Pinecone.from_existing_index(index_name, embeddings)
 
 
-PROMPT=PromptTemplate(template=prompt_template, input_variables=["context", "question"])
+PROMPT=PromptTemplate(template=prompt_template, input_variables=["input", "output", "response"])
 
 chain_type_kwargs={"prompt": PROMPT}
 
@@ -36,12 +37,10 @@ llm=CTransformers(model="model/llama-2-7b-chat.ggmlv3.q4_0.bin",
                           'temperature':0.8})
 
 
-qa=RetrievalQA.from_chain_type(
-    llm=llm, 
-    chain_type="stuff", 
-    retriever=docsearch.as_retriever(search_kwargs={'k': 2}),
-    return_source_documents=True, 
-    chain_type_kwargs=chain_type_kwargs)
+retriever = docsearch.as_retriever() # search_kwargs={"k": 4}
+
+qa=load_qa_chain(llm, chain_type="stuff", )
+
 
 
 

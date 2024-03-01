@@ -11,4 +11,5 @@ PyPDF2
 unstructured
 huggingface_hub
 CTransformers
+setuptools
 -e .
