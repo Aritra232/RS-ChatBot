@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request
 from src.helper import download_hugging_face_embeddings
-from langchain.vectorstores import Pinecone
-import pinecone
+from langchain_pinecone import Pinecone
 from langchain.prompts import PromptTemplate
 from langchain.llms import CTransformers
 from langchain.chains import RetrievalQA
@@ -20,10 +19,8 @@ PINECONE_API_ENV = os.environ.get('PINECONE_API_ENV')
 embeddings = download_hugging_face_embeddings()
 
 #Initializing the Pinecone
-# pc = Pinecone(PINECONE_API_KEY, embeddings)
 
 index_name="rs-chatbot"
-hosts = "https://rs-chatbot-95t40fu.svc.gcp-starter.pinecone.io"
 
 #Loading the index
 docsearch=Pinecone.from_existing_index(index_name, embeddings)
